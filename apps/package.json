@@ -1,0 +1,18 @@
+{
+  "name": "robot-trade-monorepo",
+  "private": true,
+  "workspaces": [
+    "api",
+    "web",
+    "pocketbase"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace web",
+    "dev:api": "npm run dev --workspace api",
+    "dev:db": "npm run dev --workspace pocketbase",
+    "build:web": "npm run build --workspace web",
+    "start:api": "npm run start --workspace api",
+    "start:db": "npm run start --workspace pocketbase",
+    "lint": "npm run lint --workspace api && npm run lint --workspace web"
+  }
+}

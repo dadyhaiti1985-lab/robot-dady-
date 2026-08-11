@@ -1,0 +1,34 @@
+# Node modules
+node_modules/
+api/node_modules/
+web/node_modules/
+pocketbase/node_modules/
+
+# Build outputs
+/dist
+web/dist
+
+# Local environment files
+.env
+*.env.local
+*.env.development
+*.env.production
+api/.env
+web/.env*
+
+# PocketBase local data and snapshots
+pocketbase/pb_data/
+pocketbase/pb_snapshots/
+
+# OS and editor files
+.DS_Store
+.vscode/
+*.log
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Generated files
+api/package-lock.json
+web/package-lock.json
+pocketbase/package-lock.json

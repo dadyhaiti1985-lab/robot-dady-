@@ -1,0 +1,11 @@
+{
+  "files": {
+    "src/main.js": "e91e90b3efb10f7cb3fbf7f9ebad37a28b6e6a0e900fd3c69a718c87437aa83d",
+    "src/routes/index.js": "6401afce95b270fee6c64761ebbf06226eff986b90859e0c56557b86761db939",
+    "src/routes/integrated-ai.js": "8854d1bb7b8a575faa3326971059af99603c1b52f32ba53205546338d4e8146f",
+    "src/constants/prompts.js": "184e3a7b9814d0b86f60ac1760c0cd81e87a2e8221c0404e59cee41e02aeacba",
+    "src/middleware/security-shield.js": "981b09faf74f1fc7edf163a29d0c5c4a153125f8224ca619c2cc54e838d8f2fb",
+    "src/routes/webhooks.js": "c8d0cc206deee88cc89c13cfb70ac48b71ec81fe640a6e4cec73dfa0e55ab838",
+    "src/utils/integrity-monitor.js": "913c61c484003a6f5c914ccea5c4a141b833f5d70cb5d07dcd6ca189f8de5fd9"
+  }
+}

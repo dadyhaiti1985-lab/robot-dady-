@@ -1,0 +1,14 @@
+{
+  "name": "pocketbase-app",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "./scripts/run-pocketbase.sh serve --http=0.0.0.0:8090 --encryptionEnv=PB_ENCRYPTION_KEY --dir=./pb_data --migrationsDir=./pb_migrations --hooksDir=./pb_hooks --hooksWatch=false",
+    "start": "./scripts/run-pocketbase.sh serve --http=0.0.0.0:8090 --encryptionEnv=PB_ENCRYPTION_KEY --dir=/data --migrationsDir=./pb_migrations --hooksDir=./pb_hooks --hooksWatch=false",
+    "migrations:up": "./scripts/run-pocketbase.sh horizons migrations:up --encryptionEnv=PB_ENCRYPTION_KEY --dir=./pb_data --migrationsDir=./pb_migrations --hooksDir=./pb_hooks --hooksWatch=false",
+    "migrations:revert": "./scripts/run-pocketbase.sh horizons migrations:revert --encryptionEnv=PB_ENCRYPTION_KEY --dir=./pb_data --migrationsDir=./pb_migrations --hooksDir=./pb_hooks --hooksWatch=false",
+    "migrations:snapshot": "mkdir -p ./pb_snapshots && echo 'y' | ./scripts/run-pocketbase.sh migrate collections --encryptionEnv=PB_ENCRYPTION_KEY --dir=./pb_data --migrationsDir=./pb_snapshots",
+    "update": "./scripts/run-pocketbase.sh update --encryptionEnv=PB_ENCRYPTION_KEY --backup=0"
+  }
+}
