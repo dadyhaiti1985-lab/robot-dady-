@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import healthCheck from './health-check.js';
+import supabaseHealth from './supabase-health.js';
 import systemHealth from './system-health.js';
 import botRouter from './bot.js';
 import coinbaseRouter from './coinbase.js';
@@ -26,6 +27,7 @@ export default function routes() {
 
   // Health check endpoint
   router.get('/health', healthCheck);
+  router.get('/health/supabase', supabaseHealth);
   router.get('/system-health', systemHealth);
 
   // Current user info with admin/role status

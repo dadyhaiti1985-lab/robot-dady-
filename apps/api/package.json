@@ -9,6 +9,7 @@
     "lint": "eslint . --quiet"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.112.3",
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
