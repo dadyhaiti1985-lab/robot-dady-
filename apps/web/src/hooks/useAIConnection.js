@@ -10,6 +10,7 @@ export function useAIConnection() {
   const [isConnected, setIsConnected] = useState(false);
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
   const [lastChecked, setLastChecked] = useState(null);
+  const [lastError, setLastError] = useState('');
   const timerRef = useRef(null);
   const mountedRef = useRef(true);
 
@@ -21,6 +22,7 @@ export function useAIConnection() {
       if (res.ok) {
         setIsConnected(true);
         setReconnectAttempts(0);
+        setLastError('');
         setLastChecked(new Date().toISOString());
         // Re-check every 30s while healthy
         timerRef.current = setTimeout(() => checkConnection(0), 30_000);
@@ -30,6 +32,7 @@ export function useAIConnection() {
     } catch (err) {
       if (!mountedRef.current) return;
       setIsConnected(false);
+      setLastError(err?.message || 'Backend unreachable');
       const nextAttempt = attempt + 1;
       setReconnectAttempts(nextAttempt);
       if (nextAttempt <= MAX_ATTEMPTS) {
@@ -54,10 +57,11 @@ export function useAIConnection() {
   const reconnect = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
     setReconnectAttempts(0);
+    setLastError('');
     checkConnection(0);
   }, [checkConnection]);
 
-  return { isConnected, reconnectAttempts, lastChecked, reconnect };
+  return { isConnected, reconnectAttempts, lastChecked, lastError, reconnect };
 }
 
 export default useAIConnection;

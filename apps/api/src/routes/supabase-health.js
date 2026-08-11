@@ -1,57 +1,70 @@
-import logger from '../utils/logger.js';
 import { supabase, supabaseKey, supabaseUrl } from '../lib/supabaseClient.js';
 
-function maskUrl(value) {
-  if (!value) return null;
-  try {
-    const parsed = new URL(value);
-    return `${parsed.protocol}//${parsed.host}`;
-  } catch {
-    return 'invalid-url';
-  }
+function normalizeBaseUrl(url) {
+  return String(url || '').trim().replace(/\/$/, '');
 }
 
-function keyFingerprint(value) {
-  if (!value) return null;
-  const str = String(value);
-  const preview = str.slice(0, 6);
-  return `${preview}... (${str.length} chars)`;
-}
-
-export default async function supabaseHealth(req, res) {
+export default async (_req, res) => {
   const hasUrl = Boolean(supabaseUrl);
   const hasKey = Boolean(supabaseKey);
-  const configured = hasUrl && hasKey && Boolean(supabase);
+  const hasClient = Boolean(supabase);
 
-  // Optional lightweight network probe; non-fatal for env verification.
-  let probe = { attempted: false, ok: false, status: 'not-run' };
-  if (configured) {
-    probe.attempted = true;
-    try {
-      const { error } = await supabase.auth.getSession();
-      probe.ok = !error;
-      probe.status = error ? `session-check-error: ${error.message}` : 'session-check-ok';
-    } catch (error) {
-      probe.ok = false;
-      probe.status = error?.message || 'session-check-failed';
-    }
+  if (!hasUrl || !hasKey) {
+    return res.status(503).json({
+      status: 'missing-env',
+      message: 'SUPABASE_URL and/or SUPABASE_KEY are not set in process.env',
+      env: {
+        hasSupabaseUrl: hasUrl,
+        hasSupabaseKey: hasKey,
+        hasClient,
+      },
+      timestamp: new Date().toISOString(),
+    });
   }
 
-  if (!configured) {
-    logger.warn('[supabase-health] Missing SUPABASE_URL or SUPABASE_KEY');
-  }
+  const endpoint = `${normalizeBaseUrl(supabaseUrl)}/rest/v1/`;
 
-  const statusCode = configured ? 200 : 503;
-  return res.status(statusCode).json({
-    success: configured,
-    configured,
-    timestamp: new Date().toISOString(),
-    env: {
-      hasSupabaseUrl: hasUrl,
-      hasSupabaseKey: hasKey,
-      supabaseUrlHost: maskUrl(supabaseUrl),
-      supabaseKeyFingerprint: keyFingerprint(supabaseKey),
-    },
-    probe,
-  });
-}
+  try {
+    const response = await fetch(endpoint, {
+      method: 'GET',
+      headers: {
+        apikey: supabaseKey,
+        Authorization: `Bearer ${supabaseKey}`,
+      },
+      signal: AbortSignal.timeout(8_000),
+    });
+
+    const reachable = response.status < 500;
+    return res.status(reachable ? 200 : 503).json({
+      status: reachable ? 'ok' : 'upstream-error',
+      message: reachable
+        ? 'Supabase endpoint reachable and environment variables are available'
+        : 'Supabase endpoint returned a server error',
+      env: {
+        hasSupabaseUrl: hasUrl,
+        hasSupabaseKey: hasKey,
+        hasClient,
+      },
+      supabase: {
+        endpoint,
+        httpStatus: response.status,
+        ok: response.ok,
+      },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    return res.status(503).json({
+      status: 'unreachable',
+      message: error?.message || 'Failed to reach Supabase endpoint',
+      env: {
+        hasSupabaseUrl: hasUrl,
+        hasSupabaseKey: hasKey,
+        hasClient,
+      },
+      supabase: {
+        endpoint,
+      },
+      timestamp: new Date().toISOString(),
+    });
+  }
+};
