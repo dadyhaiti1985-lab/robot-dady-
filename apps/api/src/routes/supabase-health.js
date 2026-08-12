@@ -1,4 +1,4 @@
-import { supabase, supabaseKey, supabaseUrl } from '../lib/supabaseClient.js';
+import { getSupabaseClient, getSupabaseInitError, supabaseKey, supabaseUrl } from '../lib/supabaseClient.js';
 
 function normalizeBaseUrl(url) {
   return String(url || '').trim().replace(/\/$/, '');
@@ -7,7 +7,9 @@ function normalizeBaseUrl(url) {
 export default async (_req, res) => {
   const hasUrl = Boolean(supabaseUrl);
   const hasKey = Boolean(supabaseKey);
-  const hasClient = Boolean(supabase);
+  const client = await getSupabaseClient();
+  const initError = getSupabaseInitError();
+  const hasClient = Boolean(client);
 
   if (!hasUrl || !hasKey) {
     return res.status(503).json({
@@ -17,6 +19,9 @@ export default async (_req, res) => {
         hasSupabaseUrl: hasUrl,
         hasSupabaseKey: hasKey,
         hasClient,
+      },
+      initialization: {
+        error: initError ? (initError.message || String(initError)) : null,
       },
       timestamp: new Date().toISOString(),
     });
@@ -45,6 +50,9 @@ export default async (_req, res) => {
         hasSupabaseKey: hasKey,
         hasClient,
       },
+      initialization: {
+        error: initError ? (initError.message || String(initError)) : null,
+      },
       supabase: {
         endpoint,
         httpStatus: response.status,
@@ -60,6 +68,9 @@ export default async (_req, res) => {
         hasSupabaseUrl: hasUrl,
         hasSupabaseKey: hasKey,
         hasClient,
+      },
+      initialization: {
+        error: initError ? (initError.message || String(initError)) : null,
       },
       supabase: {
         endpoint,

@@ -1,9 +1,27 @@
 const DEFAULT_API_SERVER_URL = '/hcgi/api';
 const DEV_DIRECT_API_URL = 'http://localhost:3001';
 
+const LEGACY_PATH_ALIASES = [
+    [/^\/oracle_r-pro\b/i, '/oracle-trader-pro'],
+    [/^\/hcgi\/oracle_r-pro\b/i, '/oracle-trader-pro'],
+    [/^\/hcgi\/oracle-trader-pro\b/i, '/oracle-trader-pro'],
+    [/^\/hcgi\/api\b/i, ''],
+];
+
 function sanitizePath(url) {
     if (typeof url !== 'string' || !url.trim()) return '/';
-    return url.startsWith('/') ? url : `/${url}`;
+    const withLeadingSlash = url.startsWith('/') ? url : `/${url}`;
+    let normalizedPath = withLeadingSlash;
+
+    for (const [pattern, replacement] of LEGACY_PATH_ALIASES) {
+        if (pattern.test(normalizedPath)) {
+            normalizedPath = normalizedPath.replace(pattern, replacement || '');
+            if (!normalizedPath.startsWith('/')) normalizedPath = `/${normalizedPath}`;
+            break;
+        }
+    }
+
+    return normalizedPath;
 }
 
 function joinUrl(base, path) {
@@ -35,6 +53,17 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 12_000) {
 
 export const API_SERVER_URL = resolveBaseUrl();
 
+export function isApiOfflineError(error) {
+    const message = String(error?.message || '').toLowerCase();
+    return (
+        message.includes('failed to fetch')
+        || message.includes('connection refused')
+        || message.includes('couldn\'t connect to server')
+        || message.includes('network error')
+        || message.includes('api request timeout')
+    );
+}
+
 const apiServerClient = {
     fetch: async (url, options = {}) => {
         const path = sanitizePath(url);
@@ -57,6 +86,9 @@ const apiServerClient = {
                 : `API request failed (${primaryUrl}): ${primaryError?.message || 'Unknown network error'}`;
             const enrichedError = new Error(message);
             enrichedError.cause = primaryError;
+            enrichedError.code = isApiOfflineError(primaryError) || /api request failed|timeout/i.test(message)
+                ? 'API_OFFLINE'
+                : 'API_REQUEST_FAILED';
             throw enrichedError;
         }
     },

@@ -2,7 +2,7 @@
  * useAIConnection — monitors AI backend connectivity with auto-reconnection.
  */
 import { useState, useEffect, useRef, useCallback } from 'react';
-import apiServerClient from '@/lib/apiServerClient';
+import apiServerClient, { isApiOfflineError } from '@/lib/apiServerClient';
 
 const MAX_ATTEMPTS = 8;
 
@@ -32,7 +32,8 @@ export function useAIConnection() {
     } catch (err) {
       if (!mountedRef.current) return;
       setIsConnected(false);
-      setLastError(err?.message || 'Backend unreachable');
+      const offlineMessage = 'Seve API la pa aktive sou port 3001';
+      setLastError(isApiOfflineError(err) ? offlineMessage : (err?.message || 'Backend unreachable'));
       const nextAttempt = attempt + 1;
       setReconnectAttempts(nextAttempt);
       if (nextAttempt <= MAX_ATTEMPTS) {

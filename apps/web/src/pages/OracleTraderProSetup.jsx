@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/select';
 import { toast } from 'sonner';
 import pb from '@/lib/pocketbaseClient';
-import apiServerClient from '@/lib/apiServerClient';
+import apiServerClient, { isApiOfflineError } from '@/lib/apiServerClient';
 
 const EXCHANGES = ['Coinbase', 'Binance', 'Bybit', 'KuCoin'];
 const ADMIN_EMAILS = ['meahunlimitedgroupe@gmail.com', 'dadyhaiti1985@gmail.com'];
@@ -48,6 +48,7 @@ export default function OracleTraderProSetup() {
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
   const [checkingCreds, setCheckingCreds] = useState(true);
+  const [apiStatusMessage, setApiStatusMessage] = useState('');
 
   // If user already has credentials, redirect straight to terminal
   useEffect(() => {
@@ -59,7 +60,11 @@ export default function OracleTraderProSetup() {
           if (data.connected) navigate('/dashboard', { replace: true });
         }
       })
-      .catch(() => {})
+      .catch((err) => {
+        if (isApiOfflineError(err)) {
+          setApiStatusMessage('Seve API la pa aktive sou port 3001. Tanpri relanse backend la epi rekomanse.');
+        }
+      })
       .finally(() => setCheckingCreds(false));
   }, [navigate]);
 
@@ -89,6 +94,7 @@ export default function OracleTraderProSetup() {
     const trimmedApiSecret = apiSecret.trim();
 
     setSaving(true);
+    setApiStatusMessage('');
     try {
       let res;
       try {
@@ -103,7 +109,14 @@ export default function OracleTraderProSetup() {
             takeProfitPercent: Number(takeProfit),
           }),
         });
-      } catch (_) {
+      } catch (requestError) {
+        if (isApiOfflineError(requestError)) {
+          const message = 'Seve API la pa aktive sou port 3001. Tanpri demare backend la epi re-eseye.';
+          setApiStatusMessage(message);
+          toast.error('API offline', { description: message });
+          return;
+        }
+
         // Fallback direct PocketBase save
         await pb.collection('users').update(user.id, {
           apiKey: trimmedApiKey, apiSecret: trimmedApiSecret, platform: exchange,
@@ -133,7 +146,14 @@ export default function OracleTraderProSetup() {
       toast.success('Kle API yo chifre epi sove!', { description: 'Ap transfere ou sou tablo trading ou...' });
       setTimeout(() => navigate('/dashboard'), 800);
     } catch (err) {
-      toast.error('Erè', { description: err.message });
+      const isOffline = isApiOfflineError(err) || err?.code === 'API_OFFLINE';
+      const message = isOffline
+        ? 'Seve API la pa aktive sou port 3001. Tanpri demare backend la epi re-eseye.'
+        : (err.message || 'Something went wrong while processing your request');
+      if (isOffline) {
+        setApiStatusMessage(message);
+      }
+      toast.error('Erè', { description: message });
     } finally {
       setSaving(false);
     }
@@ -198,6 +218,13 @@ export default function OracleTraderProSetup() {
               </p>
             </div>
           )}
+
+          {apiStatusMessage ? (
+            <div className="mb-5 p-3 rounded-lg border border-rose/40 bg-rose/10 flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-rose mt-0.5 shrink-0" />
+              <p className="text-xs text-rose">{apiStatusMessage}</p>
+            </div>
+          ) : null}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">

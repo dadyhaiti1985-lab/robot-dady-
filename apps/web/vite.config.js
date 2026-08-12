@@ -391,6 +391,16 @@ export default defineConfig({
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/hcgi\/api/, ''),
 			},
+			'/hcgi/oracle_r-pro': {
+				target: 'http://localhost:3001',
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/hcgi\/oracle_r-pro/, '/oracle-trader-pro'),
+			},
+			'/hcgi/oracle-trader-pro': {
+				target: 'http://localhost:3001',
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/hcgi\/oracle-trader-pro/, '/oracle-trader-pro'),
+			},
 		},
 		headers: {
 			'Cross-Origin-Embedder-Policy': 'credentialless',
