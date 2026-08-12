@@ -77,7 +77,15 @@ export function useBotToggle(initialActive = false) {
           return false; // Don't retry client errors
         }
 
-        throw new Error(msg); // Retriable server error
+        // Infrastructure failures — don't retry, show clear message immediately
+        if (res.status === 503 || code === 'PB_UNAVAILABLE' || code === 'PB_SAVE_FAILED') {
+          const infraMsg = 'Service unavailable — backend or database is offline. Please try again in a moment.';
+          setError(infraMsg);
+          toast.error(infraMsg);
+          return false;
+        }
+
+        throw new Error(msg); // Retriable server error (5xx other than 503)
 
       } catch (err) {
         if (attempt < MAX_RETRIES) {
