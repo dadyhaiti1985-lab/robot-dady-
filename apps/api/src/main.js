@@ -69,10 +69,14 @@ app.use(securityHeaders);
 // CORS Configuration
 // Allow requests from specified frontend origins with credentials
 const allowedOrigins = [
+	'https://oracletraderpro.com',
+	'https://www.oracletraderpro.com',
 	'https://horizons.hostinger.com',
 	'https://ede840c3-0d3d-4366-881e-753bec5b7927.app-preview.com',
-	'http://localhost:5173', // Vite dev server
-	'http://localhost:3000',  // Alternative dev port
+	'http://localhost:5173',
+	'http://localhost:3000',
+	// Allow Railway preview URLs automatically via env
+	...(process.env.RAILWAY_PUBLIC_DOMAIN ? [`https://${process.env.RAILWAY_PUBLIC_DOMAIN}`] : []),
 ];
 
 app.use(cors({
