@@ -43,8 +43,7 @@ fi
 export PB_ENCRYPTION_KEY
 
 if [ -z "${PB_ENCRYPTION_KEY:-}" ]; then
-  echo "PB_ENCRYPTION_KEY is required. Set it in ${WORKSPACE_ROOT}/.env.local, ${WORKSPACE_ROOT}/.env, or apps/api/.env"
-  exit 1
+  echo "PB_ENCRYPTION_KEY not set — starting PocketBase without data encryption."
 fi
 
 # Use explicit macOS/local binary override if provided; otherwise prefer system binary,
@@ -62,4 +61,10 @@ if [ ! -x "${PB_BIN}" ]; then
   exit 1
 fi
 
-exec "${PB_BIN}" "$@"
+# Build args: include --encryptionEnv only when the key is actually set
+EXTRA_ARGS=()
+if [ -n "${PB_ENCRYPTION_KEY:-}" ]; then
+  EXTRA_ARGS+=("--encryptionEnv=PB_ENCRYPTION_KEY")
+fi
+
+exec "${PB_BIN}" "$@" "${EXTRA_ARGS[@]}"
