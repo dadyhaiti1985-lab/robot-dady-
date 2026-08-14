@@ -6,6 +6,7 @@ import { ThemeProvider, useThemePreference } from './contexts/ThemeContext.jsx';
 import { Toaster } from 'sonner';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 
 import OracleTraderPro from './pages/OracleTraderPro.jsx';
 import HistoryPage from './pages/HistoryPage.jsx';
@@ -121,7 +122,9 @@ function AppShell() {
 function App() {
   return (
     <ThemeProvider>
-      <AppShell />
+      <ErrorBoundary label="Application">
+        <AppShell />
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }

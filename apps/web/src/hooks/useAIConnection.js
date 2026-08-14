@@ -2,12 +2,14 @@
  * useAIConnection — monitors AI backend connectivity with auto-reconnection.
  */
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { toast } from 'sonner';
 import apiServerClient, { isApiOfflineError } from '@/lib/apiServerClient';
 
 const MAX_ATTEMPTS = 8;
 
 export function useAIConnection() {
   const [isConnected, setIsConnected] = useState(false);
+  const [connectionFailed, setConnectionFailed] = useState(false);
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
   const [lastChecked, setLastChecked] = useState(null);
   const [lastError, setLastError] = useState('');
@@ -42,6 +44,8 @@ export function useAIConnection() {
         timerRef.current = setTimeout(() => checkConnection(nextAttempt), delay);
       } else {
         console.error('[useAIConnection] Max reconnect attempts reached. Giving up.');
+        setConnectionFailed(true);
+        toast.error('AI service is currently unavailable. Please try again later.');
       }
     }
   }, []);
@@ -58,11 +62,12 @@ export function useAIConnection() {
   const reconnect = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
     setReconnectAttempts(0);
+    setConnectionFailed(false);
     setLastError('');
     checkConnection(0);
   }, [checkConnection]);
 
-  return { isConnected, reconnectAttempts, lastChecked, lastError, reconnect };
+  return { isConnected, connectionFailed, reconnectAttempts, lastChecked, lastError, reconnect };
 }
 
 export default useAIConnection;

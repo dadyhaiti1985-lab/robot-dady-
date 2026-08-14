@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { toast } from 'sonner';
-import { createChart } from 'lightweight-charts';
+import { createChart, CandlestickSeries, LineSeries, HistogramSeries } from 'lightweight-charts';
 import { BarChart3, CandlestickChart, ChevronDown, Loader2 } from 'lucide-react';
 import pb from '@/lib/pocketbaseClient';
 import apiServerClient from '@/lib/apiServerClient';
@@ -364,7 +364,7 @@ export default function TradingView() {
     };
 
     const mainChart = createChart(mainContainer, { ...baseOptions, width, height: 420 });
-    const candleSeries = mainChart.addCandlestickSeries({
+    const candleSeries = mainChart.addSeries(CandlestickSeries, {
       upColor: CHART_THEME.green,
       downColor: CHART_THEME.red,
       borderVisible: false,
@@ -376,7 +376,7 @@ export default function TradingView() {
     candleSeries.setData(processed.main);
 
     if (enabledIndicators.volume) {
-      const volumeSeries = mainChart.addHistogramSeries({
+      const volumeSeries = mainChart.addSeries(HistogramSeries, {
         priceScaleId: '',
         priceFormat: { type: 'volume' },
         scaleMargins: { top: 0.78, bottom: 0 },
@@ -385,8 +385,8 @@ export default function TradingView() {
     }
 
     if (enabledIndicators.ema) {
-      const ema20Series = mainChart.addLineSeries({ color: CHART_THEME.blue, lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
-      const ema50Series = mainChart.addLineSeries({ color: CHART_THEME.amber, lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
+      const ema20Series = mainChart.addSeries(LineSeries, { color: CHART_THEME.blue, lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
+      const ema50Series = mainChart.addSeries(LineSeries, { color: CHART_THEME.amber, lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
       ema20Series.setData(processed.ema20);
       ema50Series.setData(processed.ema50);
     }
@@ -414,15 +414,15 @@ export default function TradingView() {
     let macdChart = null;
     if (enabledIndicators.rsi && rsiContainer && processed.rsi.length > 0) {
       rsiChart = createChart(rsiContainer, { ...baseOptions, width, height: 120 });
-      const rsiSeries = rsiChart.addLineSeries({ color: '#A855F7', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
+      const rsiSeries = rsiChart.addSeries(LineSeries, { color: '#A855F7', lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
       rsiSeries.setData(processed.rsi);
       rsiChart.timeScale().fitContent();
     }
     if (enabledIndicators.macd && macdContainer && processed.macdLine.length > 0) {
       macdChart = createChart(macdContainer, { ...baseOptions, width, height: 140 });
-      const macdHistogram = macdChart.addHistogramSeries({ priceLineVisible: false, lastValueVisible: false });
-      const macdLineSeries = macdChart.addLineSeries({ color: CHART_THEME.blue, lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
-      const macdSignalSeries = macdChart.addLineSeries({ color: CHART_THEME.amber, lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
+      const macdHistogram = macdChart.addSeries(HistogramSeries, { priceLineVisible: false, lastValueVisible: false });
+      const macdLineSeries = macdChart.addSeries(LineSeries, { color: CHART_THEME.blue, lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
+      const macdSignalSeries = macdChart.addSeries(LineSeries, { color: CHART_THEME.amber, lineWidth: 2, priceLineVisible: false, lastValueVisible: false });
       macdHistogram.setData(processed.histogram);
       macdLineSeries.setData(processed.macdLine);
       macdSignalSeries.setData(processed.signalLine);

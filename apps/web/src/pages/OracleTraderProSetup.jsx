@@ -161,20 +161,23 @@ export default function OracleTraderProSetup() {
 
   if (checkingCreds) {
     return (
-      <div className="min-h-screen bg-background grid-bg flex items-center justify-center">
-        <Loader2 className="w-6 h-6 animate-spin text-primary" />
+      <div className="min-h-screen w-full bg-[#0B0E14] flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+        <Loader2 className="w-6 h-6 animate-spin text-primary relative z-10" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background grid-bg flex items-center justify-center p-4">
+    <div className="min-h-screen w-full bg-[#0B0E14] text-white flex flex-col items-center justify-center relative overflow-hidden p-4">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
       <Helmet>
         <title>Konfigirasyon API Keys — Oracle Trader Pro</title>
         <meta name="description" content="Antre kle API exchange ou pou aktive Oracle Trader Pro." />
       </Helmet>
 
-      <div className="w-full max-w-lg">
+      <div className="relative z-10 w-full max-w-lg">
         {/* Logo / Brand */}
         <div className="flex items-center gap-3 mb-8 justify-center">
           <div className="w-12 h-12 rounded-xl bg-primary/15 border border-primary/40 flex items-center justify-center glow-green">
