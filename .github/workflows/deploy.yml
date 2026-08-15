@@ -23,12 +23,12 @@ jobs:
           npm run build
 
       - name: 🚀 SFTP Deploy
-        uses: SamKirland/FTP-Deploy-Action@v4.3.4
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
           server: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
           port: ${{ secrets.SFTP_PORT }}
-          protocol: sftp
-          local-dir: ./dist/
-          server-dir: /domains/mistyrose-hummingbird-755752.hostingersite.com/public_html/
+          local_path: ./dist/*
+          remote_path: /domains/mistyrose-hummingbird-755752.hostingersite.com/public_html/
+          sftp_only: true
