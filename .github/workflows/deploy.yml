@@ -23,9 +23,9 @@ jobs:
           npm run build
 
       - name: 📋 Configure deploy variables
-        run: |
-          PORT=${{ secrets.SFTP_PORT }}
-          echo "DEPLOY_PORT=${PORT:-22}" >> $GITHUB_ENV
+        env:
+          SFTP_PORT_SECRET: ${{ secrets.SFTP_PORT }}
+        run: echo "DEPLOY_PORT=${SFTP_PORT_SECRET:-22}" >> $GITHUB_ENV
 
       - name: 🚀 SFTP Deploy
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
