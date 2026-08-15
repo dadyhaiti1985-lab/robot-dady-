@@ -9,28 +9,15 @@ import { Activity, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 const LoginPage = () => {
-  const { login, loginWithGoogle, checkCredentials } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
-  const redirectingRef = React.useRef(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const redirectAfterLogin = async () => {
-    // Guard: prevent double-redirect
-    if (redirectingRef.current) return;
-    redirectingRef.current = true;
-    try {
-      const hasCredentials = await checkCredentials();
-      if (hasCredentials) {
-        navigate('/dashboard', { replace: true });
-      } else {
-        navigate('/dashboard', { replace: true });
-      }
-    } finally {
-      redirectingRef.current = false;
-    }
+  const redirectAfterLogin = () => {
+    navigate('/dashboard', { replace: true });
   };
 
   const handleSubmit = async (e) => {
@@ -44,7 +31,7 @@ const LoginPage = () => {
       await login(formData.email, formData.password);
       toast.success('Ou konekte avèk siksè! (Login successful)');
       setFormData({ email: '', password: '' });
-      await redirectAfterLogin();
+      navigate('/dashboard', { replace: true });
     } catch (error) {
       toast.error(error.message);
     } finally {
