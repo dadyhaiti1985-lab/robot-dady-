@@ -19,6 +19,8 @@ import webhooksRouter from './webhooks.js';
 import botToggleRouter from './bot-toggle.js';
 import aiSignalsRouter from './ai-signals.js';
 import economicCalendarRouter from './economic-calendar.js';
+import depositsRouter from './deposits.js';
+import withdrawalsRouter from './withdrawals.js';
 import { licenseGuardMiddleware } from '../middleware/license-guard.js';
 import { apiBurstLimiter, authRouteLimiter, webhookRouteLimiter } from '../middleware/security-rate-limits.js';
 
@@ -75,6 +77,12 @@ export default function routes() {
 
 	// Economic calendar feed for macro view / caution flagging
 	router.use('/economic-calendar', economicCalendarRouter);
+
+  // Deposit history and wallet addresses
+  router.use('/deposits', apiBurstLimiter, depositsRouter);
+
+  // Withdrawal history and requests
+  router.use('/withdrawals', apiBurstLimiter, withdrawalsRouter);
 
   return router;
 }

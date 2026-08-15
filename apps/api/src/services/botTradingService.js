@@ -11,6 +11,13 @@ const inMemoryState = new Map();
 // Active bot loops
 const activeBots = new Map();
 
+// Per-user async execution lock — prevents concurrent ticks
+const executionLocks = new Set();
+
+// Cooldown tracker: userId → timestamp of last BUY execution
+const lastBuyTime = new Map();
+const MIN_BUY_COOLDOWN_MS = 5 * 60 * 1000; // 5 min between consecutive BUYs
+
 // Circuit breaker state
 const circuitBreakers = new Map();
 
@@ -69,6 +76,8 @@ function calculateRSI(prices, period = 14) {
 async function getBotState(userId) {
   try {
     const config = await pb.collection('botConfig').getFirstListItem(`userId = "${userId}"`);
+    // Merge in-memory currentPosition so it survives PocketBase save failures
+    const memState = inMemoryState.get(userId);
     return {
       userId,
       isActive: config.isActive || false,
@@ -78,9 +87,9 @@ async function getBotState(userId) {
       takeProfit: config.takeProfit || 5,
       allocation: config.allocation || 5,
       candleGranularity: config.candleGranularity || 300,
-      lastTradeTime: config.lastTradeTime || null,
-      currentPosition: config.currentPosition || null,
-      balance: config.balance || 10000,
+      lastTradeTime: memState?.lastTradeTime ?? config.lastTradeTime ?? null,
+      currentPosition: memState?.currentPosition ?? config.currentPosition ?? null,
+      balance: memState?.balance ?? config.balance ?? 10000,
       pbId: config.id,
     };
   } catch (error) {
@@ -203,6 +212,20 @@ async function logTrade(userId, tradeData) {
  * Execute trading step for a user
  */
 async function executeTradingStep(userId) {
+  // Prevent concurrent execution for the same user
+  if (executionLocks.has(userId)) {
+    logger.debug(`[bot] Skipping tick for ${userId} — previous step still running`);
+    return { executed: false, message: 'Step already in progress' };
+  }
+  executionLocks.add(userId);
+  try {
+    return await _doTradingStep(userId);
+  } finally {
+    executionLocks.delete(userId);
+  }
+}
+
+async function _doTradingStep(userId) {
   const state = await getBotState(userId);
 
   if (!state.isActive) {
@@ -241,8 +264,12 @@ async function executeTradingStep(userId) {
     let tradeExecuted = false;
     let tradeData = null;
 
-    // BUY SIGNAL
-    if (!hasOpenPosition && currentPrice > ema20 && previousPrice < ema20 && rsi14 >= 40 && rsi14 <= 58) {
+    // BUY SIGNAL — also gated by cooldown to prevent re-entry when state is stale
+    const cooldownRemaining = MIN_BUY_COOLDOWN_MS - (Date.now() - (lastBuyTime.get(userId) || 0));
+    if (!hasOpenPosition && cooldownRemaining > 0) {
+      logger.debug(`[bot] BUY cooldown active for ${userId}: ${Math.ceil(cooldownRemaining / 1000)}s remaining`);
+    }
+    if (!hasOpenPosition && cooldownRemaining <= 0 && currentPrice > ema20 && previousPrice < ema20 && rsi14 >= 40 && rsi14 <= 58) {
       try {
         const account = await coinbase.getAccount();
         const balance = parseFloat(account.available);
@@ -276,6 +303,7 @@ async function executeTradingStep(userId) {
         state.balance = balance - orderSize;
 
         await saveBotState(userId, state);
+        lastBuyTime.set(userId, Date.now()); // stamp cooldown immediately after BUY
 
         tradeExecuted = true;
         tradeData = {
@@ -428,6 +456,14 @@ function isTradingLoopRunning(userId) {
   return activeBots.has(userId);
 }
 
+// Stop every active loop at once — used by Telegram /stop command
+export function stopAllBots() {
+  const ids = [...activeBots.keys()];
+  ids.forEach(stopTradingLoop);
+  logger.info(`[BotService] All bots stopped (${ids.length} loops)`);
+  return ids.length;
+}
+
 /**
  * Initialize bot trading service on startup
  * Resume trading for users who had active bots
@@ -463,6 +499,7 @@ export {
   initializeBotService,
   startTradingLoop,
   stopTradingLoop,
+  stopAllBots,
   isTradingLoopRunning,
   getBotState,
   saveBotState,

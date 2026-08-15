@@ -163,6 +163,9 @@ async function runBotStep(userId) {
         quantity,
         price: executedPrice,
         timestamp: new Date(),
+        analysis: `EMA20 Bullish Crossover (Pri $${currentPrice.toFixed(2)} > EMA20 $${ema20.toFixed(2)}) + RSI ${rsi14.toFixed(1)} (Zone nèt 40-58)`,
+        closePrices,
+        ema20,
       }).catch(err => {
         logger.error('Failed to send trade notification:', err.message);
       });
@@ -227,6 +230,9 @@ async function runBotStep(userId) {
           price: executedPrice,
           timestamp: new Date(),
           pnl,
+          analysis: `${reason} | RSI ${rsi14.toFixed(1)}${pnl >= 0 ? ' ✅ Benefis' : ' ❌ Pèt'}`,
+          closePrices,
+          ema20,
         }).catch(err => {
           logger.error('Failed to send trade notification:', err.message);
         });

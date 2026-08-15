@@ -17,8 +17,9 @@ import { securityShield } from './middleware/security-shield.js';
 import logger from './utils/logger.js';
 import securityHeaders from './middleware/security-headers.js';
 import { BodyLimit } from './constants/common.js';
-import { initializeBotService } from './services/botTradingService.js';
+import { initializeBotService, stopAllBots } from './services/botTradingService.js';
 import { startPositionGuardLoop } from './services/live-position-guard.js';
+import { startCommandListener } from './utils/telegram.js';
 import { runLicenseGuardStartupCheck } from './middleware/license-guard.js';
 import { scheduleIntegrityMonitor } from './utils/integrity-monitor.js';
 
@@ -167,6 +168,7 @@ app.listen(port, () => {
 	initializeBotService().catch(err => {
 		logger.error('Failed to initialize bot trading service:', err.message);
 	});
+	startCommandListener({ stopAllBots, restartAllBots: initializeBotService });
 	startPositionGuardLoop();
 });
 

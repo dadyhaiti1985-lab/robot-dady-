@@ -3,18 +3,88 @@ import axios from 'axios';
 import crypto from 'crypto';
 import logger from './logger.js';
 
-const BASE_URL = 'https://api.coinbase.com/api/v1';
 const API_KEY = process.env.COINBASE_API_KEY;
 const API_SECRET = process.env.COINBASE_API_SECRET;
+
+// CDP keys use the format organizations/<org>/apiKeys/<id> and require JWT auth
+const IS_CDP_KEY = Boolean(API_KEY?.startsWith('organizations/'));
+const BASE_URL = IS_CDP_KEY
+  ? 'https://api.coinbase.com/api/v3/brokerage'
+  : 'https://api.coinbase.com/api/v1';
 
 // Check if Coinbase credentials are configured
 let isConfigured = false;
 
 /**
- * Validate and initialize Coinbase credentials
+ * Generate a JWT for Coinbase Developer Platform (CDP) keys (ES256).
+ * Coinbase docs: https://docs.cdp.coinbase.com/advanced-trade/docs/rest-api-auth
+ */
+function generateCdpJwt(method, path) {
+  const now = Math.floor(Date.now() / 1000);
+  const nonce = crypto.randomBytes(16).toString('hex');
+  // URI must NOT include query string
+  const uri = `${method} api.coinbase.com${path.split('?')[0]}`;
+
+  const header = Buffer.from(JSON.stringify({ alg: 'ES256', kid: API_KEY, nonce })).toString('base64url');
+  const payload = Buffer.from(JSON.stringify({
+    sub: API_KEY,
+    iss: 'cdp',
+    nbf: now,
+    exp: now + 120,
+    uri,
+  })).toString('base64url');
+
+  const signingInput = `${header}.${payload}`;
+  // Normalize escaped newlines that may appear when the PEM is stored in an env var
+  const pemKey = API_SECRET.replace(/\\n/g, '\n');
+
+  // ES256 = ECDSA-SHA256; ieee-p1363 outputs raw R||S (64 bytes) — the JWT wire format
+  const sig = crypto.sign('SHA256', Buffer.from(signingInput), {
+    key: pemKey,
+    dsaEncoding: 'ieee-p1363',
+  });
+
+  return `${signingInput}.${sig.toString('base64url')}`;
+}
+
+/**
+ * Generate authentication headers — CDP JWT or legacy HMAC, depending on key type.
+ */
+function generateAuthHeaders(method, path, body = '') {
+  if (IS_CDP_KEY) {
+    return {
+      Authorization: `Bearer ${generateCdpJwt(method, path)}`,
+      'Content-Type': 'application/json',
+    };
+  }
+
+  // Legacy Coinbase Pro / HMAC auth
+  const timestamp = Math.floor(Date.now() / 1000).toString();
+  const message = timestamp + method + path + body;
+  const signature = crypto.createHmac('sha256', API_SECRET).update(message).digest('hex');
+  return {
+    'CB-ACCESS-KEY': API_KEY,
+    'CB-ACCESS-SIGN': signature,
+    'CB-ACCESS-TIMESTAMP': timestamp,
+    'Content-Type': 'application/json',
+  };
+}
+
+/**
+ * Raw HTTP call — no isConfigured gate; used by init validation and makeRequest.
+ */
+async function _rawRequest(method, path, data = null) {
+  const url = `${BASE_URL}${path}`;
+  const body = data ? JSON.stringify(data) : '';
+  const headers = generateAuthHeaders(method, path, body);
+  const response = await axios({ method, url, headers, data: data || undefined });
+  return response.data;
+}
+
+/**
+ * Validate and initialize Coinbase credentials (bypasses isConfigured gate).
  */
 async function initializeCoinbaseCredentials() {
-  // Check if credentials are present and non-empty
   if (!API_KEY || !API_SECRET || API_KEY.trim() === '' || API_SECRET.trim() === '') {
     logger.warn('Coinbase API credentials not configured - using demo mode');
     isConfigured = false;
@@ -22,20 +92,31 @@ async function initializeCoinbaseCredentials() {
   }
 
   try {
-    // Make a test API call to verify credentials
-    logger.info('Testing Coinbase API credentials...');
-    const testResponse = await makeRequest('GET', '/accounts');
-
-    if (testResponse) {
-      isConfigured = true;
-      logger.info('Coinbase API credentials loaded successfully');
-    } else {
-      isConfigured = false;
-      logger.error('Coinbase API test call failed - falling back to demo mode');
-    }
+    logger.info(`Testing Coinbase API credentials (${IS_CDP_KEY ? 'CDP/JWT' : 'HMAC'})...`);
+    await _rawRequest('GET', '/accounts?limit=1');
+    isConfigured = true;
+    logger.info('Coinbase API credentials validated successfully');
   } catch (error) {
     isConfigured = false;
-    logger.error('Coinbase API credential validation failed:', error.message, '- falling back to demo mode');
+    const detail = error.response?.data ? JSON.stringify(error.response.data) : error.message;
+    logger.error('Coinbase API credential validation failed:', detail, '- falling back to demo mode');
+  }
+}
+
+/**
+ * Make authenticated request to Coinbase API (requires isConfigured = true).
+ */
+async function makeRequest(method, path, data = null) {
+  if (!isConfigured) {
+    logger.debug(`Coinbase API not configured, returning null for ${method} ${path}`);
+    return null;
+  }
+  try {
+    return await _rawRequest(method, path, data);
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || error.message;
+    logger.error(`Coinbase API error (${method} ${path}):`, errorMessage);
+    return null;
   }
 }
 
@@ -57,55 +138,6 @@ function getMockBalance() {
  */
 function getMockTrades() {
   return [];
-}
-
-/**
- * Generate authentication headers for Coinbase Advanced Trade API
- */
-function generateAuthHeaders(method, path, body = '') {
-  const timestamp = Math.floor(Date.now() / 1000).toString();
-  const message = timestamp + method + path + body;
-
-  const signature = crypto
-    .createHmac('sha256', API_SECRET)
-    .update(message)
-    .digest('hex');
-
-  return {
-    'CB-ACCESS-KEY': API_KEY,
-    'CB-ACCESS-SIGN': signature,
-    'CB-ACCESS-TIMESTAMP': timestamp,
-    'Content-Type': 'application/json',
-  };
-}
-
-/**
- * Make authenticated request to Coinbase API
- */
-async function makeRequest(method, path, data = null) {
-  // Return null if credentials not configured
-  if (!isConfigured) {
-    logger.debug(`Coinbase API not configured, returning null for ${method} ${path}`);
-    return null;
-  }
-
-  const url = `${BASE_URL}${path}`;
-  const body = data ? JSON.stringify(data) : '';
-  const headers = generateAuthHeaders(method, path, body);
-
-  try {
-    const response = await axios({
-      method,
-      url,
-      headers,
-      data: data || undefined,
-    });
-    return response.data;
-  } catch (error) {
-    const errorMessage = error.response?.data?.message || error.message;
-    logger.error(`Coinbase API error (${method} ${path}):`, errorMessage);
-    return null;
-  }
 }
 
 /**
