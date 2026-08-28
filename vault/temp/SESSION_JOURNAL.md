@@ -10637,3 +10637,1035 @@ Error
 ## 2026-08-15 04:26:19.249Z console.warn
 - text: [Perf] Worker took 95.1ms (target <50ms)
 
+## 2026-08-28 02:44:32.158Z load
+- url: http://localhost:3000/
+
+## 2026-08-28 02:44:33.952Z navigate
+- url: http://localhost:3000/
+- via: replaceState
+
+## 2026-08-28 02:44:34.339Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/platform/api/collections/_integratedAiMessages/records?page=1&perPage=500&skipTotal=1&sort=created
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 274
+
+## 2026-08-28 02:44:34.340Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/platform/api/collections/bot_account_balance/records?page=1&perPage=1&filter=userId%20%3D%20%22k3atxfk5yxgefz2%22&sort=-created
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 273
+
+## 2026-08-28 02:44:34.340Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/platform/api/collections/bot_portfolio/records?page=1&perPage=20&filter=userId%20%3D%20%22k3atxfk5yxgefz2%22&sort=-created
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 273
+
+## 2026-08-28 02:44:34.340Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/platform/api/collections/trades/records?page=1&perPage=10&filter=userId%20%3D%20%22k3atxfk5yxgefz2%22&sort=-created
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 273
+
+## 2026-08-28 02:44:34.389Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/platform/api/collections/oracle_credentials/records?page=1&perPage=1&filter=owner%20%3D%20%22k3atxfk5yxgefz2%22&skipTotal=1
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 321
+
+## 2026-08-28 02:44:34.389Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/ecommerce/subscriptions
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 309
+
+## 2026-08-28 02:44:34.389Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/platform/api/collections/oracle_credentials/records?page=1&perPage=1&filter=owner%20%3D%20%22k3atxfk5yxgefz2%22&skipTotal=1
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 309
+
+## 2026-08-28 02:44:34.404Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/platform/api/collections/_integratedAiMessages/records?page=1&perPage=500&skipTotal=1&sort=created: 
+
+## 2026-08-28 02:44:34.409Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/platform/api/collections/bot_account_balance/records?page=1&perPage=1&filter=userId%20%3D%20%22k3atxfk5yxgefz2%22&sort=-created: 
+
+## 2026-08-28 02:44:34.410Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/platform/api/collections/bot_portfolio/records?page=1&perPage=20&filter=userId%20%3D%20%22k3atxfk5yxgefz2%22&sort=-created: 
+
+## 2026-08-28 02:44:34.411Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/platform/api/collections/trades/records?page=1&perPage=10&filter=userId%20%3D%20%22k3atxfk5yxgefz2%22&sort=-created: 
+
+## 2026-08-28 02:44:34.497Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/platform/api/collections/oracle_credentials/records?page=1&perPage=1&filter=owner%20%3D%20%22k3atxfk5yxgefz2%22&skipTotal=1: 
+
+## 2026-08-28 02:44:34.498Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/ecommerce/subscriptions: 
+
+## 2026-08-28 02:44:34.498Z console.error
+- text: 
+    Failed to fetch subscriptions: Error: Failed to fetch subscriptions: 500
+        at getUserSubscriptions (http://localhost:3000/src/api/InternalEcommerceSubscriptionsApi.js:29:9)
+        at async SubscriptionAuthProvider.fetchSubscriptionsRef.current (http://localhost:3000/src/contexts/SubscriptionAuthContext.jsx:20:19)
+
+## 2026-08-28 02:44:34.498Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/platform/api/collections/oracle_credentials/records?page=1&perPage=1&filter=owner%20%3D%20%22k3atxfk5yxgefz2%22&skipTotal=1: 
+
+## 2026-08-28 02:44:34.941Z console.warn
+- text: [Perf] Low FPS detected: 29
+
+## 2026-08-28 02:44:36.334Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":" KONT PA OU"}
+
+## 2026-08-28 02:44:36.335Z navigate
+- url: http://localhost:3000/dashboard/oracle-trader-pro
+- via: pushState
+
+## 2026-08-28 02:44:36.643Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/platform/api/collections/_integratedAiMessages/records?page=1&perPage=500&skipTotal=1&sort=created
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 106
+
+## 2026-08-28 02:44:36.643Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/health
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 105
+
+## 2026-08-28 02:44:36.643Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/bot/status
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 105
+
+## 2026-08-28 02:44:36.643Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/trades
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 105
+
+## 2026-08-28 02:44:36.651Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/platform/api/collections/_integratedAiMessages/records?page=1&perPage=500&skipTotal=1&sort=created: 
+
+## 2026-08-28 02:44:36.652Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/health: 
+
+## 2026-08-28 02:44:36.652Z console.warn
+- text: [useAIConnection] Backend unreachable (500). Retry 1/8 in 1000ms
+
+## 2026-08-28 02:44:36.652Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/bot/status: 
+
+## 2026-08-28 02:44:36.653Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/trades: 
+
+## 2026-08-28 02:44:36.706Z console.warn
+- text: [Perf] Worker took 245.0ms (target <50ms)
+
+## 2026-08-28 02:44:36.958Z console.warn
+- text: [Perf] Low FPS detected: 50
+
+## 2026-08-28 02:44:37.163Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/user/balance
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 9
+
+## 2026-08-28 02:44:37.166Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/user/balance: 
+
+## 2026-08-28 02:44:37.664Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/health
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 10
+
+## 2026-08-28 02:44:37.666Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/health: 
+
+## 2026-08-28 02:44:37.666Z console.warn
+- text: [useAIConnection] Backend unreachable (500). Retry 2/8 in 2000ms
+
+## 2026-08-28 02:44:39.684Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/health
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 16
+
+## 2026-08-28 02:44:39.684Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/health: 
+
+## 2026-08-28 02:44:39.685Z console.warn
+- text: [useAIConnection] Backend unreachable (500). Retry 3/8 in 4000ms
+
+## 2026-08-28 02:44:40.298Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Portfolio"}
+
+## 2026-08-28 02:44:40.299Z navigate
+- url: http://localhost:3000/dashboard#portfolio
+- via: pushState
+
+## 2026-08-28 02:44:40.381Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/user/balance
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 43
+
+## 2026-08-28 02:44:40.385Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/user/balance: 
+
+## 2026-08-28 02:44:42.154Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Orders"}
+
+## 2026-08-28 02:44:42.155Z navigate
+- url: http://localhost:3000/dashboard#orders
+- via: pushState
+
+## 2026-08-28 02:44:42.187Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/coinbase/fills?limit=60
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 9
+
+## 2026-08-28 02:44:42.187Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/coinbase/fills?limit=60: 
+
+## 2026-08-28 02:44:43.437Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Watchlist"}
+
+## 2026-08-28 02:44:43.437Z navigate
+- url: http://localhost:3000/dashboard#watchlist
+- via: pushState
+
+## 2026-08-28 02:44:43.690Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/health
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 5
+
+## 2026-08-28 02:44:43.691Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/health: 
+
+## 2026-08-28 02:44:43.691Z console.warn
+- text: [useAIConnection] Backend unreachable (500). Retry 4/8 in 8000ms
+
+## 2026-08-28 02:44:44.759Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"News Intelligence"}
+
+## 2026-08-28 02:44:44.759Z navigate
+- url: http://localhost:3000/dashboard#news
+- via: pushState
+
+## 2026-08-28 02:44:45.937Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Smart Money"}
+
+## 2026-08-28 02:44:45.937Z navigate
+- url: http://localhost:3000/dashboard#smartmoney
+- via: pushState
+
+## 2026-08-28 02:44:47.977Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Economic Calendar"}
+
+## 2026-08-28 02:44:47.977Z navigate
+- url: http://localhost:3000/dashboard#calendar
+- via: pushState
+
+## 2026-08-28 02:44:48.012Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/economic-calendar?range=week&impact=all&currency=all
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 7
+
+## 2026-08-28 02:44:48.012Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/economic-calendar?range=week&impact=all&currency=all: 
+
+## 2026-08-28 02:44:48.012Z console.error
+- text: 
+    Failed to load economic calendar: SyntaxError: Unexpected end of JSON input
+        at load (http://localhost:3000/src/views/EconomicCalendarView.jsx:161:40)
+
+## 2026-08-28 02:44:49.001Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Analytics"}
+
+## 2026-08-28 02:44:49.002Z navigate
+- url: http://localhost:3000/dashboard#analytics
+- via: pushState
+
+## 2026-08-28 02:44:49.058Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/trades
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 22
+
+## 2026-08-28 02:44:49.061Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/trades: 
+
+## 2026-08-28 02:44:49.062Z console.error
+- text: 
+    Failed to load analytics trades: Error: HTTP 500
+        at loadTrades (http://localhost:3000/src/views/AnalyticsView.jsx:321:17)
+
+## 2026-08-28 02:44:51.536Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Trade History"}
+
+## 2026-08-28 02:44:51.537Z navigate
+- url: http://localhost:3000/dashboard#trade-history
+- via: pushState
+
+## 2026-08-28 02:44:51.574Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/trades
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 12
+
+## 2026-08-28 02:44:51.574Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/trades: 
+
+## 2026-08-28 02:44:51.574Z console.error
+- text: 
+    Failed to load trade history: Error: HTTP 500
+        at loadTrades (http://localhost:3000/src/views/TradeHistoryView.jsx:201:33)
+
+## 2026-08-28 02:44:51.698Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/health
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 4
+
+## 2026-08-28 02:44:51.698Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/health: 
+
+## 2026-08-28 02:44:51.698Z console.warn
+- text: [useAIConnection] Backend unreachable (500). Retry 5/8 in 16000ms
+
+## 2026-08-28 02:44:53.452Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Dashboard"}
+
+## 2026-08-28 02:44:53.452Z navigate
+- url: http://localhost:3000/dashboard
+- via: pushState
+
+## 2026-08-28 02:44:53.620Z console.warn
+- text: [Perf] Worker took 74.1ms (target <50ms)
+
+## 2026-08-28 02:45:07.730Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/health
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 31
+
+## 2026-08-28 02:45:07.730Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/health: 
+
+## 2026-08-28 02:45:07.730Z console.warn
+- text: [useAIConnection] Backend unreachable (500). Retry 6/8 in 30000ms
+
+## 2026-08-28 02:45:17.521Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Markets"}
+
+## 2026-08-28 02:45:17.521Z navigate
+- url: http://localhost:3000/dashboard#markets
+- via: pushState
+
+## 2026-08-28 02:45:18.693Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Dashboard"}
+
+## 2026-08-28 02:45:18.693Z navigate
+- url: http://localhost:3000/dashboard
+- via: pushState
+
+## 2026-08-28 02:45:18.823Z console.warn
+- text: [Perf] Worker took 86.0ms (target <50ms)
+
+## 2026-08-28 02:45:19.874Z click
+- element: {"tag":"button","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":" START AI TRADING"}
+
+## 2026-08-28 02:45:19.926Z network.error
+- method: POST
+- url: http://localhost:3000/hcgi/api/bot/toggle
+- status: 500
+- statusText: Internal Server Error
+- requestBody: {"botActive":"true"}
+- durationMs: 51
+
+## 2026-08-28 02:45:19.936Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/bot/toggle: 
+
+## 2026-08-28 02:45:19.937Z console.warn
+- text: [useBotToggle] Attempt 1 failed: HTTP 500. Retrying in 1000ms…
+
+## 2026-08-28 02:45:20.942Z network.error
+- method: POST
+- url: http://localhost:3000/hcgi/api/bot/toggle
+- status: 500
+- statusText: Internal Server Error
+- requestBody: {"botActive":"true"}
+- durationMs: 3
+
+## 2026-08-28 02:45:20.942Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/bot/toggle: 
+
+## 2026-08-28 02:45:20.942Z console.warn
+- text: [useBotToggle] Attempt 2 failed: HTTP 500. Retrying in 2000ms…
+
+## 2026-08-28 02:45:22.949Z network.error
+- method: POST
+- url: http://localhost:3000/hcgi/api/bot/toggle
+- status: 500
+- statusText: Internal Server Error
+- requestBody: {"botActive":"true"}
+- durationMs: 7
+
+## 2026-08-28 02:45:22.949Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/bot/toggle: 
+
+## 2026-08-28 02:45:22.949Z console.warn
+- text: [useBotToggle] Attempt 3 failed: HTTP 500. Retrying in 4000ms…
+
+## 2026-08-28 02:45:26.959Z network.error
+- method: POST
+- url: http://localhost:3000/hcgi/api/bot/toggle
+- status: 500
+- statusText: Internal Server Error
+- requestBody: {"botActive":"true"}
+- durationMs: 5
+
+## 2026-08-28 02:45:26.959Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/bot/toggle: 
+
+## 2026-08-28 02:45:36.552Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/user/balance
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 11
+
+## 2026-08-28 02:45:36.552Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/user/balance: 
+
+## 2026-08-28 02:45:37.736Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/health
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 4
+
+## 2026-08-28 02:45:37.736Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/health: 
+
+## 2026-08-28 02:45:37.736Z console.warn
+- text: [useAIConnection] Backend unreachable (500). Retry 7/8 in 30000ms
+
+## 2026-08-28 02:45:39.536Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"AI Analysis"}
+
+## 2026-08-28 02:45:39.536Z navigate
+- url: http://localhost:3000/dashboard#analysis
+- via: pushState
+
+## 2026-08-28 02:45:40.382Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"AI Analysis"}
+
+## 2026-08-28 02:45:40.382Z navigate
+- url: http://localhost:3000/dashboard#analysis
+- via: replaceState
+
+## 2026-08-28 02:45:41.417Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Trading"}
+
+## 2026-08-28 02:45:41.418Z navigate
+- url: http://localhost:3000/dashboard#trading
+- via: pushState
+
+## 2026-08-28 02:45:41.452Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 9
+
+## 2026-08-28 02:45:41.452Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 9
+
+## 2026-08-28 02:45:41.452Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:45:41.452Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:45:41.452Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:45:41.453Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:45:42.688Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Orders"}
+
+## 2026-08-28 02:45:42.688Z navigate
+- url: http://localhost:3000/dashboard#orders
+- via: pushState
+
+## 2026-08-28 02:45:42.724Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/coinbase/fills?limit=60
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 14
+
+## 2026-08-28 02:45:42.724Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/coinbase/fills?limit=60: 
+
+## 2026-08-28 02:45:45.472Z click
+- element: {"tag":"p","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"INTELLIGENCE"}
+
+## 2026-08-28 02:45:46.890Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Watchlist"}
+
+## 2026-08-28 02:45:46.891Z navigate
+- url: http://localhost:3000/dashboard#watchlist
+- via: pushState
+
+## 2026-08-28 02:45:48.962Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"News Intelligence"}
+
+## 2026-08-28 02:45:48.962Z navigate
+- url: http://localhost:3000/dashboard#news
+- via: pushState
+
+## 2026-08-28 02:45:50.476Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Watchlist"}
+
+## 2026-08-28 02:45:50.476Z navigate
+- url: http://localhost:3000/dashboard#watchlist
+- via: pushState
+
+## 2026-08-28 02:45:52.270Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Dashboard"}
+
+## 2026-08-28 02:45:52.270Z navigate
+- url: http://localhost:3000/dashboard
+- via: pushState
+
+## 2026-08-28 02:45:52.443Z console.warn
+- text: [Perf] Worker took 119.4ms (target <50ms)
+
+## 2026-08-28 02:45:54.722Z click
+- element: {"tag":"div","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"BTC67,245+2.3%ETH3,512+1.8%SOL182.4+4.1%XRP0.628-0.9%GOLD2,341+0.4%EUR/USD1.0842-0.1%BTC67,245+2.3%ETH3,512+1.8%SOL182.4+4.1%XRP0.628-0.9%GOLD2,341+0.4%EUR/USD1.0842-0.1%AI LIVE12ms99.9%ENTraderOracle AI EngineACTIVE Market ConnectedScanning Global Markets...AI Confidence86%Opportunity70%Risk LevelMediumSentimentBullishAI RecommendationSTRONG BUY — BTC/USDTarget: $71,200 · SL: $65,800 · R/R: 1:2.8HIGH CONFIDENCE START AI TRADINGScanning MarketsLive Market OverviewallcryptoindexforexcommodityBTBTC/USDBitcoin+2.30%$67,245Vol: 42.1BHighAnalyzeETETH/USDEthereum+1.80%$3,512Vol: 18.3BMedAnalyzeSOSOL/USDSolana+4.10%$182.40Vol: 5.2BHighAnalyzeXRXRP/USDXRP-0.90%$0.6280Vol: 2.1BMedAnalyzeBNBNB/USDBNB+0.60%$418.20Vol: 1.4BLowAnalyzeNANASDAQNASDAQ-0.40%$19,128Vol: 8.9BLowAnalyzeS&S&P500S&P 500+0.20%$5,432Vol: 12.1BLowAnalyzeGOGOLDGold+0.40%$2,341Vol: 3.2BLowAnalyzeEUEUR/USDEuro-0.10%$1.0842Vol: 6.4BLowAnalyzeGBGBP/USDPound+0.30%$1.2641Vol: 2.8BLowAnalyzeUSUSD/JPYDollar/Yen-0.20%$156.78Vol: 4.1BMedAnalyzeBTC/USD+2.3%1m5m15m1H4H1D1W1MEMA 9EMA 21RSIMACDVWAPBBAI Analysis PanelLIVE87%AI Confidence ScoreStrong BuyBTC/USD — 4H timeframeBullish Score73%Bearish Score28%Buy Probability81%Sell Probability19%Trend Strength78%Market Volatility17%Momentum68%Liquidity85%Institutional64%Expected Move3.2% Bulls 73% Bears 27%Trade ExecutionBTC/USD · $67,245AssetBTC/USDETH/USDSOL/USDXRP/USDBNB/USDGOLDEUR/USDGBP/USDCurrent Price$67,245Spread$12.4Order TypeMarketLimitStopStop-LimitLeverage1x2x5x10x20x50x100xLot SizeRisk %Take ProfitStop LossMargin: $67.25Risk: $13.45 BUY SELLAI SignalsUpdated 10:45:52 PMAssetSignalConf.TFRiskTargetStop LossEst. ProfitStatusBTC/USDBUY87%4HLow71,20065,800+8.4%ActiveETH/USDBUY74%1DMed3,8503,320+9.6%ActiveSOL/USDSELL62%4HHigh165.00195.00+9.5%PendingGOLDBUY78%1DLow2,3902,295+2.1%ActiveEUR/USDSELL55%1HLow1.071.09+0.85%PendingGBP/USDHOLD51%4HMed1.271.26+0.62%WatchXRP/USDBUY69%1DHigh0.72000.5900+14.6%ActiveNASDAQHOLD58%1DLow19,50018,800+1.9%WatchPortfolioTotal Balance$0.00..."}
+
+## 2026-08-28 02:45:56.987Z console.warn
+- text: [Perf] Low FPS detected: 36
+
+## 2026-08-28 02:46:07.917Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/health
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 179
+
+## 2026-08-28 02:46:07.917Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/health: 
+
+## 2026-08-28 02:46:07.917Z console.warn
+- text: [useAIConnection] Backend unreachable (500). Retry 8/8 in 30000ms
+
+## 2026-08-28 02:46:38.089Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/health
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 170
+
+## 2026-08-28 02:46:38.089Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/health: 
+
+## 2026-08-28 02:46:38.090Z console.error
+- text: [useAIConnection] Max reconnect attempts reached. Giving up.
+
+## 2026-08-28 02:46:41.218Z click
+- element: {"tag":"div","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Oracle AI EngineACTIVE Market ConnectedScanning Global Markets...AI Confidence85%Opportunity67%Risk LevelMediumSentimentBullishAI RecommendationSTRONG BUY — BTC/USDTarget: $71,200 · SL: $65,800 · R/R: 1:2.8HIGH CONFIDENCE START AI TRADING"}
+
+## 2026-08-28 02:46:46.693Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"AI Signals"}
+
+## 2026-08-28 02:46:46.693Z navigate
+- url: http://localhost:3000/dashboard#signals
+- via: pushState
+
+## 2026-08-28 02:46:48.192Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"AI Analysis"}
+
+## 2026-08-28 02:46:48.193Z navigate
+- url: http://localhost:3000/dashboard#analysis
+- via: pushState
+
+## 2026-08-28 02:46:49.547Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Portfolio"}
+
+## 2026-08-28 02:46:49.547Z navigate
+- url: http://localhost:3000/dashboard#portfolio
+- via: pushState
+
+## 2026-08-28 02:46:49.562Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/user/balance
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 6
+
+## 2026-08-28 02:46:49.562Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/user/balance: 
+
+## 2026-08-28 02:46:51.690Z click
+- element: {"tag":"button","role":null,"ariaLabel":null,"name":null,"type":"button","id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Principal (Par défaut)14,10 $US • 12.96%"}
+
+## 2026-08-28 02:46:52.649Z click
+- element: {"tag":"button","role":null,"ariaLabel":null,"name":null,"type":"button","id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"DADY94,71 $US • 87.04%"}
+
+## 2026-08-28 02:46:53.742Z click
+- element: {"tag":"div","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"0.00%"}
+
+## 2026-08-28 02:46:54.286Z click
+- element: {"tag":"div","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"0.00%"}
+
+## 2026-08-28 02:46:54.969Z click
+- element: {"tag":"div","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"0.00%"}
+
+## 2026-08-28 02:46:55.927Z click
+- element: {"tag":"button","role":null,"ariaLabel":null,"name":null,"type":"button","id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Principal (Par défaut)14,10 $US • 12.96%"}
+
+## 2026-08-28 02:46:56.621Z click
+- element: {"tag":"button","role":null,"ariaLabel":null,"name":null,"type":"button","id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Tous les portefeuilles108,80 $US"}
+
+## 2026-08-28 02:46:57.986Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Orders"}
+
+## 2026-08-28 02:46:57.986Z navigate
+- url: http://localhost:3000/dashboard#orders
+- via: pushState
+
+## 2026-08-28 02:46:58.026Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/coinbase/fills?limit=60
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 17
+
+## 2026-08-28 02:46:58.027Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/coinbase/fills?limit=60: 
+
+## 2026-08-28 02:47:02.138Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Dashboard"}
+
+## 2026-08-28 02:47:02.138Z navigate
+- url: http://localhost:3000/dashboard
+- via: pushState
+
+## 2026-08-28 02:47:02.333Z console.warn
+- text: [Perf] Worker took 131.9ms (target <50ms)
+
+## 2026-08-28 02:47:21.022Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Markets"}
+
+## 2026-08-28 02:47:21.022Z navigate
+- url: http://localhost:3000/dashboard#markets
+- via: pushState
+
+## 2026-08-28 02:47:22.558Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"AI Signals"}
+
+## 2026-08-28 02:47:22.558Z navigate
+- url: http://localhost:3000/dashboard#signals
+- via: pushState
+
+## 2026-08-28 02:47:23.941Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"AI Analysis"}
+
+## 2026-08-28 02:47:23.941Z navigate
+- url: http://localhost:3000/dashboard#analysis
+- via: pushState
+
+## 2026-08-28 02:47:24.918Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Trading"}
+
+## 2026-08-28 02:47:24.918Z navigate
+- url: http://localhost:3000/dashboard#trading
+- via: pushState
+
+## 2026-08-28 02:47:24.944Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 5
+
+## 2026-08-28 02:47:24.944Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 5
+
+## 2026-08-28 02:47:24.944Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:47:24.944Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:47:24.944Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:47:24.944Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:47:25.808Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Portfolio"}
+
+## 2026-08-28 02:47:25.808Z navigate
+- url: http://localhost:3000/dashboard#portfolio
+- via: pushState
+
+## 2026-08-28 02:47:25.830Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/user/balance
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 3
+
+## 2026-08-28 02:47:25.830Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/user/balance: 
+
+## 2026-08-28 02:47:26.896Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"AI Analysis"}
+
+## 2026-08-28 02:47:26.896Z navigate
+- url: http://localhost:3000/dashboard#analysis
+- via: pushState
+
+## 2026-08-28 02:47:28.177Z click
+- element: {"tag":"a","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"Trading"}
+
+## 2026-08-28 02:47:28.177Z navigate
+- url: http://localhost:3000/dashboard#trading
+- via: pushState
+
+## 2026-08-28 02:47:28.193Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 5
+
+## 2026-08-28 02:47:28.193Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:47:28.193Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:47:28.203Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 15
+
+## 2026-08-28 02:47:28.204Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:47:28.204Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:47:31.107Z click
+- element: {"tag":"div","role":null,"ariaLabel":null,"name":null,"type":null,"id":null,"placeholder":null,"label":null,"value":null,"valueLength":0,"text":"BTC67,245+2.3%ETH3,512+1.8%SOL182.4+4.1%XRP0.628-0.9%GOLD2,341+0.4%EUR/USD1.0842-0.1%BTC67,245+2.3%ETH3,512+1.8%SOL182.4+4.1%XRP0.628-0.9%GOLD2,341+0.4%EUR/USD1.0842-0.1%AI LIVE12ms99.9%ENTraderTradingExecute trades with real-time market data and live order placement📊Advanced chart unavailableNo candle data returned for the selected market.Place OrderSideBUYSELLOrder TypeMarketLimitSymbolQuantityBUY NOWOpen PositionsNo open positions — place a trade above to get started"}
+
+## 2026-08-28 02:47:43.364Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 174
+
+## 2026-08-28 02:47:43.364Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:47:43.365Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:47:43.371Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 180
+
+## 2026-08-28 02:47:43.371Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:47:43.371Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:47:58.195Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 5
+
+## 2026-08-28 02:47:58.195Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:47:58.195Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:47:58.199Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 9
+
+## 2026-08-28 02:47:58.200Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:47:58.200Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:48:14.116Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 3
+
+## 2026-08-28 02:48:14.116Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:48:14.116Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:48:14.121Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 9
+
+## 2026-08-28 02:48:14.122Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:48:14.122Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:48:30.319Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 6
+
+## 2026-08-28 02:48:30.320Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:48:30.320Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:48:30.320Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 6
+
+## 2026-08-28 02:48:30.413Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:48:30.414Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:48:45.569Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 5
+
+## 2026-08-28 02:48:45.569Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 5
+
+## 2026-08-28 02:48:45.569Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:48:45.570Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:48:45.570Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:48:45.570Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:49:01.420Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 6
+
+## 2026-08-28 02:49:01.421Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:49:01.421Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:49:01.473Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 59
+
+## 2026-08-28 02:49:01.474Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:49:01.474Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:49:37.119Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/user/balance
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 5
+
+## 2026-08-28 02:49:37.119Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/user/balance: 
+
+## 2026-08-28 02:49:42.272Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 4
+
+## 2026-08-28 02:49:42.272Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:49:42.272Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:49:42.326Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 58
+
+## 2026-08-28 02:49:42.326Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:49:42.326Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
+## 2026-08-28 02:50:02.482Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 18
+
+## 2026-08-28 02:50:02.482Z network.error
+- method: GET
+- url: http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD
+- status: 500
+- statusText: Internal Server Error
+- durationMs: 18
+
+## 2026-08-28 02:50:02.483Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/candles?symbol=BTC-USD&interval=900&limit=160: 
+
+## 2026-08-28 02:50:02.483Z console.error
+- text: 
+    Failed to load candles: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:231:15
+
+## 2026-08-28 02:50:02.483Z console.error
+- text: Fetch error from http://localhost:3000/hcgi/api/oracle-trader-pro/positions?symbol=BTC-USD: 
+
+## 2026-08-28 02:50:02.483Z console.error
+- text: 
+    Failed to load positions: Error: HTTP 500
+        at http://localhost:3000/src/views/TradingView.jsx:265:15
+
