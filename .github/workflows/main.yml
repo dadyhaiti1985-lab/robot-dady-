@@ -12,7 +12,6 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -33,7 +32,6 @@ jobs:
         run: npm run build
 
       - name: Deploy via FTP
-        if: ${{ secrets.SFTP_SERVER != '' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.SFTP_SERVER }}
@@ -41,4 +39,4 @@ jobs:
           password: ${{ secrets.SFTP_PASSWORD }}
           protocol: ftps
           local-dir: ./dist/apps/web/
-          server-dir: ./domains/mistyrose-hummingbird-755752.hostingersite.com/public_html/
+          server-dir: ./public_html/
