@@ -12,6 +12,10 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      SFTP_SERVER: ${{ secrets.SFTP_SERVER }}
+      SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+      SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,19 +36,16 @@ jobs:
         run: npm run build
 
       - name: Install lftp
-        if: ${{ secrets.SFTP_SERVER != '' && secrets.SFTP_USERNAME != '' && secrets.SFTP_PASSWORD != '' }}
+        if: ${{ env.SFTP_SERVER != '' && env.SFTP_USERNAME != '' && env.SFTP_PASSWORD != '' }}
         run: sudo apt-get update && sudo apt-get install -y lftp
 
       - name: Deploy via SFTP
-        if: ${{ secrets.SFTP_SERVER != '' && secrets.SFTP_USERNAME != '' && secrets.SFTP_PASSWORD != '' }}
-        env:
-          SFTP_SERVER: ${{ secrets.SFTP_SERVER }}
-          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+        if: ${{ env.SFTP_SERVER != '' && env.SFTP_USERNAME != '' && env.SFTP_PASSWORD != '' }}
         run: |
-          lftp -u "$SFTP_USERNAME","$SFTP_PASSWORD" "sftp://$SFTP_SERVER" <<'EOF'
-          set sftp:auto-confirm yes
+          lftp <<EOF
+          set sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=accept-new"
+          open -u "$SFTP_USERNAME","$SFTP_PASSWORD" "sftp://$SFTP_SERVER"
           mkdir -p public_html
-          mirror --reverse --delete --verbose ./dist/apps/web public_html
+          mirror --reverse --delete --verbose ./dist/apps/web/ public_html/
           bye
           EOF
