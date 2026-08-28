@@ -74,7 +74,7 @@ jobs:
     # 🖊️ Uncomment this if you are using CRDA scan step above
     # needs: crda-scan
     name: Build and deploy to OpenShift
-    if: ${{ secrets.OPENSHIFT_SERVER != '' && secrets.OPENSHIFT_TOKEN != '' }}
+    if: secrets.OPENSHIFT_SERVER != '' && secrets.OPENSHIFT_TOKEN != ''
     runs-on: ubuntu-latest
     environment: production
 
