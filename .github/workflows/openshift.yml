@@ -101,8 +101,6 @@ jobs:
             secrets["IMAGE_REGISTRY_PASSWORD"] = `${{ secrets.IMAGE_REGISTRY_PASSWORD }}`;
           }
 
-          core.setOutput("ready", "false");
-
           const missingSecrets = Object.entries(secrets).filter(([ name, value ]) => {
             if (value.length === 0) {
               core.error(`Secret "${name}" is not set`);
