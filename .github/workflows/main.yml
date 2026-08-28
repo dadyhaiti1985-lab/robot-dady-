@@ -33,6 +33,7 @@ jobs:
         run: npm run build
 
       - name: Deploy via FTP
+        if: ${{ secrets.SFTP_SERVER != '' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.SFTP_SERVER }}
