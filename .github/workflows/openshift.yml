@@ -74,7 +74,6 @@ jobs:
     # 🖊️ Uncomment this if you are using CRDA scan step above
     # needs: crda-scan
     name: Build and deploy to OpenShift
-    if: ${{ env.OPENSHIFT_SERVER != '' && env.OPENSHIFT_TOKEN != '' }}
     runs-on: ubuntu-latest
     environment: production
 
@@ -84,6 +83,7 @@ jobs:
 
     steps:
     - name: Check for required secrets
+      id: required-secrets
       uses: actions/github-script@v6
       with:
         script: |
@@ -101,6 +101,8 @@ jobs:
             secrets["IMAGE_REGISTRY_PASSWORD"] = `${{ secrets.IMAGE_REGISTRY_PASSWORD }}`;
           }
 
+          core.setOutput("ready", "false");
+
           const missingSecrets = Object.entries(secrets).filter(([ name, value ]) => {
             if (value.length === 0) {
               core.error(`Secret "${name}" is not set`);
@@ -111,7 +113,7 @@ jobs:
           });
 
           if (missingSecrets.length > 0) {
-            core.setFailed(`❌ At least one required secret is not set in the repository. \n` +
+            core.warning(`⚠️ At least one required secret is not set in the repository. Deployment steps will be skipped. \n` +
               "You can add it using:\n" +
               "GitHub UI: https://docs.github.com/en/actions/reference/encrypted-secrets#creating-encrypted-secrets-for-a-repository \n" +
               "GitHub CLI: https://cli.github.com/manual/gh_secret_set \n" +
@@ -119,23 +121,26 @@ jobs:
           }
           else {
             core.info(`✅ All the required secrets are set`);
+            core.setOutput("ready", "true");
           }
 
     - name: Check out repository
+      if: ${{ steps.required-secrets.outputs.ready == 'true' }}
       uses: actions/checkout@v4
 
     - name: Determine app name
-      if: env.APP_NAME == ''
+      if: ${{ steps.required-secrets.outputs.ready == 'true' && env.APP_NAME == '' }}
       run: |
         echo "APP_NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
 
     - name: Determine image tags
-      if: env.IMAGE_TAGS == ''
+      if: ${{ steps.required-secrets.outputs.ready == 'true' && env.IMAGE_TAGS == '' }}
       run: |
         echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
 
     # https://github.com/redhat-actions/buildah-build#readme
     - name: Build from Dockerfile
+      if: ${{ steps.required-secrets.outputs.ready == 'true' }}
       id: build-image
       uses: redhat-actions/buildah-build@v2
       with:
@@ -150,6 +155,7 @@ jobs:
 
     # https://github.com/redhat-actions/push-to-registry#readme
     - name: Push to registry
+      if: ${{ steps.required-secrets.outputs.ready == 'true' }}
       id: push-image
       uses: redhat-actions/push-to-registry@v2
       with:
@@ -162,12 +168,14 @@ jobs:
     # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
 
     - name: Install oc
+      if: ${{ steps.required-secrets.outputs.ready == 'true' }}
       uses: redhat-actions/openshift-tools-installer@v1
       with:
         oc: 4
 
     # https://github.com/redhat-actions/oc-login#readme
     - name: Log in to OpenShift
+      if: ${{ steps.required-secrets.outputs.ready == 'true' }}
       uses: redhat-actions/oc-login@v1
       with:
         openshift_server_url: ${{ env.OPENSHIFT_SERVER }}
@@ -178,6 +186,7 @@ jobs:
     # This step should create a deployment, service, and route to run your app and expose it to the internet.
     # https://github.com/redhat-actions/oc-new-app#readme
     - name: Create and expose app
+      if: ${{ steps.required-secrets.outputs.ready == 'true' }}
       id: deploy-and-expose
       uses: redhat-actions/oc-new-app@v1
       with:
@@ -187,6 +196,7 @@ jobs:
         port: ${{ env.APP_PORT }}
 
     - name: Print application URL
+      if: ${{ steps.required-secrets.outputs.ready == 'true' }}
       env:
         ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
         SELECTOR: ${{ steps.deploy-and-expose.outputs.selector }}
