@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="generator" content="Hostinger Horizons" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>RoboKripto</title>
+		<!-- Inline cookie cleanup: run synchronously before any scripts to prevent 431 errors -->
+		<script>
+			(function(){
+				try {
+					// Delete all cookies that are not essential (pocketbase auth)
+					var pairs = document.cookie.split(';');
+					var essential = ['pb_', 'pocketbase'];
+					pairs.forEach(function(pair){
+						var name = pair.split('=')[0].trim();
+						var lower = name.toLowerCase();
+						if (!essential.some(function(e){ return lower.indexOf(e) === 0; })) {
+							var exp = '; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+							document.cookie = name + '=' + exp;
+							document.cookie = name + '=' + exp + '; domain=' + location.hostname;
+						}
+					});
+					// Trim PocketBase auth token in localStorage to minimal fields
+					var raw = localStorage.getItem('pocketbase_auth');
+					if (raw) {
+						try {
+							var p = JSON.parse(raw);
+							if (p && p.model) {
+								p.model = { id: p.model.id, email: p.model.email, verified: p.model.verified, name: p.model.name };
+								localStorage.setItem('pocketbase_auth', JSON.stringify(p));
+							}
+						} catch(e2) {}
+					}
+					// Remove oversized localStorage entries (>2KB) except auth
+					try {
+						var lsKeep = ['pocketbase_auth'];
+						var lsStale = ['temp_','cache_','debug_','tmp_','h_','_ga','_gid','amp_','ajs_'];
+						for (var i = localStorage.length - 1; i >= 0; i--) {
+							var k = localStorage.key(i);
+							if (!k || lsKeep.indexOf(k) !== -1) continue;
+							if (lsStale.some(function(p){ return k.indexOf(p) === 0; })) { localStorage.removeItem(k); continue; }
+							var v = localStorage.getItem(k);
+							if (v && v.length > 2048) localStorage.removeItem(k);
+						}
+					} catch(e3) {}
+					// Remove oversized sessionStorage entries (>2KB)
+					try {
+						for (var j = sessionStorage.length - 1; j >= 0; j--) {
+							var sk = sessionStorage.key(j);
+							if (!sk) continue;
+							var sv = sessionStorage.getItem(sk);
+							if (sv && sv.length > 2048) sessionStorage.removeItem(sk);
+						}
+					} catch(e4) {}
+				} catch(e) {}
+			})();
+		</script>
+		<script type="module" crossorigin src="/assets/index-DBwEHXH7.js"></script>
+		<link rel="stylesheet" crossorigin href="/assets/index-CeKV13LM.css">
+		<script type="module">
+// Prevents authentication failures (PB returns 400) from crashing the app — use console.info, not console.error/PM2.
+// [urlPattern, bodyPattern] tuples; align with sandboxErrorUtils ERROR_BLACKLIST.
+const BENIGN_FETCH_ERRORS = [
+	[/hcgi\/platform\/api\/collections\/.*auth-with-password.*/i, /Failed to authenticate/i],
+	[/hcgi\/api\//i, /Insufficient credits/i],
+];
+
+function isBenignFetchError(url, body) {
+	return BENIGN_FETCH_ERRORS.some(([urlPattern, bodyPattern]) =>
+		urlPattern.test(url) && (!bodyPattern || bodyPattern.test(body)));
+}
+
+const PLATFORM_URL_PATTERN = /hcgi\/platform\//i;
+const VALIDATION_CODE_TEXT_PATTERN = /validation_/;
+
+function hasValidationCode(value) {
+	if (value == null) {
+		return false;
+	}
+	if (typeof value === 'string') {
+		return value.startsWith('validation_');
+	}
+	if (Array.isArray(value)) {
+		return value.some(hasValidationCode);
+	}
+	if (typeof value === 'object') {
+		return Object.values(value).some(hasValidationCode);
+	}
+	return false;
+}
+
+function isValidationFetchWarning(url, body) {
+	if (!PLATFORM_URL_PATTERN.test(url)) {
+		return false;
+	}
+	try {
+		return hasValidationCode(JSON.parse(body));
+	} catch {
+		return VALIDATION_CODE_TEXT_PATTERN.test(body);
+	}
+}
+
+const originalFetch = window.fetch;
+
+window.fetch = function(...args) {
+	const url = args[0] instanceof Request ? args[0].url : args[0];
+
+	// Skip WebSocket URLs
+	if (url.startsWith('ws:') || url.startsWith('wss:')) {
+		return originalFetch.apply(this, args);
+	}
+
+	return originalFetch.apply(this, args)
+		.then(async response => {
+			const contentType = response.headers.get('Content-Type') || '';
+
+			// Exclude HTML document responses
+			const isDocumentResponse =
+				contentType.includes('text/html') ||
+				contentType.includes('application/xhtml+xml');
+
+			if (!response.ok && !isDocumentResponse) {
+					const responseClone = response.clone();
+					const errorFromRes = await responseClone.text();
+					const requestUrl = response.url;
+					const errorMessage = `Fetch error from ${requestUrl}: ${errorFromRes}`;
+
+					if (isBenignFetchError(requestUrl, errorFromRes)) {
+						console.info(errorMessage);
+					} else if (isValidationFetchWarning(requestUrl, errorFromRes)) {
+						console.warn(errorMessage);
+					} else {
+						console.error(errorMessage);
+					}
+			}
+
+			return response;
+		})
+		.catch(error => {
+			if (!url.match(/.html?$/i)) {
+				// Cancelled in-flight fetch (e.g. preview reload) — not a server failure.
+				if (error?.name === 'AbortError') {
+					console.info(error);
+				} else {
+					console.error(error);
+				}
+			}
+
+			throw error;
+		});
+};
+</script>
+	</head>
+	<body>
+		<div id="root"></div>
+	</body>
+</html>
